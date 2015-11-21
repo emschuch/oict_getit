@@ -69,6 +69,7 @@ you started. You can see rake tasks described with:
 
     $ rake help
 
+
 ## IRB Console
 
 We'll save interesting queries in ``./db/utils.rb``. For example
