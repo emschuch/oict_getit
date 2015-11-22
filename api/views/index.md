@@ -12,10 +12,10 @@ This is a list of supported paths:
 
     path:        '/location'
     description: "Gives an array of all the entries around 'location' coordinates given a radius."
-    arguments:   {
-        location: [37.0,-7],             // required. array of two numbers (floats or integers)
+    arguments: {
+        center: [37.0, -7],              // required. array of two numbers (floats or integers)
         radius: 5,                       // optional. default: 1 (float or integer)
-        unit: "degrees",                 // optional. default: 'degrees'
+        unit:   "degrees",               // optional. default: 'degrees'
         technology_dummy: "Mini Grid"    // optional. default: null (any kind)
     }
 

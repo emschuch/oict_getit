@@ -1,7 +1,10 @@
 # coding: utf-8
 
 def all_country_names
-  $db[:countries].select(:name, :id).all
+  $db[:countries]
+    .select(:name, :id)
+    .order_by(:name)
+    .all
 end
 
 def insert_entries stop
@@ -96,34 +99,54 @@ def get_entry_count_by_country array
     .where(:name => array)
     .group_by(:name, :technology_dummy)
     .order_by(:name)
-    .all
 end
 
-def get_entries_around opts
+def location_query proc, opts
   if opts['unit'] == 'meters'
-    x = :x_meters
-    y = :y_meters
+    x_unit = :x_meters
+    y_unit = :y_meters
 
   else
-    x = :x_degrees
-    y = :y_degrees
+    x_unit = :x_degrees
+    y_unit = :y_degrees
 
   end
 
-  x_min = opts['location'][0] - opts['radius']
-  x_max = opts['location'][0] + opts['radius']
+  range = {
+    x_unit: x_unit,
+    x_min: opts['center'][0] - opts['radius'],
+    x_max: opts['center'][0] + opts['radius'],
 
-  y_min = opts['location'][1] - opts['radius']
-  y_max = opts['location'][1] + opts['radius']
+    y_unit: y_unit,
+    y_min: opts['center'][1] - opts['radius'],
+    y_max: opts['center'][1] + opts['radius']
+  }
 
-  q = $db[:entries]
-    .select(:id, :country_id, :x_degrees, :y_degrees, :technology_dummy)
-    .where(x => x_min..x_max,
-           y => y_min..y_max)
+  proc.call(range,opts)
+end
 
-  if opts['technology_dummy']
-    q = q.where(:technology_dummy => opts['technology_dummy'])
-  end
+def get_entries_by_location
+  lambda { |range,opts|
+    q = $db[:entries]
+        .select(:id, :country_id, :x_degrees, :y_degrees, :technology_dummy)
+        .where(range[:x_unit] => range[:x_min]..range[:x_max],
+               range[:y_unit] => range[:y_min]..range[:y_max])
 
-  return q.all
+    if opts['technology_dummy']
+      q = q.where(:technology_dummy => opts['technology_dummy'])
+    end
+
+    return q
+  }
+end
+
+def get_entry_count_by_location
+  lambda { |range,opts|
+    $db[:entries]
+      .select(:technology_dummy,
+              Sequel.function(:count, 1))
+      .where(range[:x_unit] => range[:x_min]..range[:x_max],
+             range[:y_unit] => range[:y_min]..range[:y_max])
+      .group_by(:technology_dummy)
+  }
 end

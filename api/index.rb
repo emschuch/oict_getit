@@ -9,10 +9,10 @@ class API < Sinatra::Base
 
       begin
         it = {
-          'radius'   => obj['radius'].to_f,
-          'location' => [
-            obj['location'][0].to_f,
-            obj['location'][1].to_f
+          'radius' => obj['radius'].to_f,
+          'center' => [
+            obj['center'][0].to_f,
+            obj['center'][1].to_f
           ],
           'unit'             => obj['unit'].strip.downcase,
           'technology_dummy' => td
@@ -22,8 +22,9 @@ class API < Sinatra::Base
 
       rescue
         halt 400, { error:    "Data fed should look like this",
-                    solution: { location: [37.0, -7],
-                                radius: 5, unit: "degrees",
+                    solution: { center: [37.0, -7],
+                                radius: 5,
+                                unit:   "degrees",
                                 technology_dummy: "Mini Grid" } }.to_json
       end
     end
@@ -40,8 +41,12 @@ class API < Sinatra::Base
       @clean_params = cleanup_location_params(params)
     }
 
-    get('/?') {
-      get_entries_around(@clean_params).to_json
+    get('/entry_count') {
+      location_query(get_entry_count_by_location, @clean_params).all.to_json
+    }
+
+    get('/entries') {
+      location_query(get_entries_by_location, @clean_params).all.to_json
     }
   }
 
@@ -51,7 +56,7 @@ class API < Sinatra::Base
     }
 
     get('/:country_name/?') {
-      get_entry_count_by_country params[:country_name].to_json
+      get_entry_count_by_country params[:country_name].all.to_json
     }
   }
 end
