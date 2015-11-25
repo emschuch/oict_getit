@@ -1,0 +1,210 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Electrification</title>
+    <!-- FONT -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,500,400italic,300' rel='stylesheet' type='text/css'>
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="./bootstrap-3.3.5-dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="./style/main.css">
+    <link rel="stylesheet" type="text/css" href="./style/brandbar.css">
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.11.4/mapbox-gl.css' rel='stylesheet' />
+    <!-- JAVASCRIPT -->
+    <script type="text/javascript" src="./jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="./bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.11.4/mapbox-gl.js'></script>
+
+</head>
+
+<body>
+
+    <!-- UN BRAND BAR -->
+
+    <div id="brand-bar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container brandbar-header">
+            <div class="row">
+
+                <div class="col-md-4">
+                    <a id="navLanChg" class="navbar-brand" href="#">Welcome to the United Nations</a>
+                </div>
+
+                <div class="col-md-8 language-switcher">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#language-switcher">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div id="languageSwitch" class="language-title visible-xs-inline"><a href="javascript:void(0)" data-toggle="collapse" data-target="#language-switcher">Language:</a></div>
+                    <div class="navbar-collapse collapse" id="language-switcher">
+                        <nav role="navigation">
+                            <ul id="language_switcher" class="language-switcher-locale-url nav navbar-nav navbar-right" role="menu">
+                                <li id="arabicItem" class="ar">
+                                    <a href="#" id="arabicChange" class="language-link" style="background-color: transparent" lang="ar">العربية</a>
+                                </li>
+                                <li id="chineseItem" class="zh-cn">
+                                    <a href="#" id="chineseChange" class="language-link" style="background-color: transparent" lang="zh-cn">中文</a>
+                                </li>
+                                <li id="englishItem" class="en active">
+                                    <a href="#" id="englishChange" class="language-link" style="background-color: transparent" lang="en">English</a>
+                                </li>
+                                <li id="frenchItem" class="fr">
+                                    <a href="#" id="frenchChange" class="language-link" style="background-color: transparent" lang="fr">Français</a>
+                                </li>
+                            
+                                <li id="russianItem" class="ru">
+                                    <a href="#" id="russianChange" class="language-link" style="background-color: transparent" lang="ru">Ру́сский</a>
+                                </li>
+                                <li id="spanishItem" class="es">
+                                    <a href="#" id="spanishChange" class="language-link" style="background-color: transparent" lang="es">Español</a>
+                                </li>
+                            
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="main-title">
+            <h1>Electrification Planning</h1>
+        </div>
+
+        <!-- DASHBOARD CONTROLS -->
+
+        <div id="control-area" class="container-left col-md-5 col-xs-12">
+            <div class="control-small col-md-12 col-xs-12">
+                <div class="dropdown">
+                    <div class="control-text-lg control-label col-md-3 col-xs-3">
+                        Region:
+                    </div>
+                    <div class="col-md-9 col-xs-9 remove-padding">
+                        <button id="active-region" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Ethiopia 
+                        <span class="caret"></span></button>
+                        <ul id="country-dropdown" class="dropdown-menu scrollable-menu" role="menu">
+<!--                             <li><a href="#">Algeria</a></li>
+                            <li><a href="#">Angola</a></li>
+                            <li><a href="#">Benin</a></li>
+                            <li><a href="#">Botswana</a></li> -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="control-small control-topborder col-md-12 col-xs-12">
+                <div class="dropdown">
+                    <div class="control-text control-label col-md-3 col-xs-3">
+                        Scenario:
+                    </div>
+                    <div class="col-md-3 col-xs-3 remove-padding">
+                        <button id="active-scenario" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Tier 1
+                        <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="scenario-choice" data-value="tier1">Tier 1</a></li>
+                            <li><a href="#" class="scenario-choice" data-value="tier2">Tier 2</a></li>
+                            <li><a href="#" class="scenario-choice" data-value="tier3">Tier 3</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <div class="control-text control-label add-padding col-md-4 col-xs-4">
+                        Diesel Price:
+                    </div>
+                    <div class="col-md-2 col-xs-2 remove-padding">
+                        <button id="active-diesel" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">High
+                        <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="diesel-choice" data-value="High">High</a></li>
+                            <li><a href="#" class="diesel-choice" data-value="Low">Low</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="control-med control-topborder col-md-12 col-xs-12">
+                <div class="col-md-4 col-xs-4 remove-padding pie-chart-area electrified">
+                    <p class="control-text-small">Currently<br>Electrified:</p>
+                </div>
+                <div class="col-md-4 col-xs-4 remove-padding pie-chart-area rural">
+                    <p class="control-text-small">Percent<br>Rural:</p>
+                </div>
+                <div class="col-md-4 col-xs-4 remove-padding">
+                    <p class="control-text-small">Total<br>Cost:</p>
+                    <p class="threshold-text"></p>
+                    <p class="cost-text"></p>
+                </div>
+            </div>
+            <div class="control-med control-topborder col-md-12 col-xs-12">
+                <p class="control-text-lg">By Technology:</p>
+                <div class="col-md-12 col-xs-12 remove-padding bar-chart-div">
+                    <div class="col-md-4 col-xs-5 remove-padding">
+                        <p class="control-text-small bar-chart-label">Newly Electrified:</p>
+                    </div>
+                    <div class=" col-md-8 col-xs-7 bar-chart-area new-electrified remove-padding"></div>
+                </div>
+                <div class="col-md-12 col-xs-12 remove-padding bar-chart-div">
+                    <div class="col-md-4 col-xs-5 remove-padding">
+                        <p class="control-text-small bar-chart-label">Cost Breakdown:</p>
+                    </div>
+                    <div class=" col-md-8 col-xs-7 bar-chart-area cost-breakdown remove-padding"></div>
+                </div>
+            </div>
+            <div class="control-lg control-topborder col-md-12 col-xs-12">
+                <p class="control-text-lg">Context:</p>
+                <p>57% of the African population live without access to electricity services – a key impediment towards social and economic growth. Accelerating access to electricity requires strategies and programmes that effectively address and account for the geographical, infrastructural and socioeconomic characteristics of a country or region.</p>
+            </div>
+            
+        </div>
+
+        <!-- MAP AREA -->
+
+<!--         <div id='legend' style='display:none;'>
+            <strong>The Title or Explanation of your Map</strong>
+            <nav class='legend clearfix'>
+                <span style='background:#F1EEF6;'></span>
+                <span style='background:#BDC9E1;'></span>
+                <span style='background:#74A9CF;'></span>
+                <span style='background:#2B8CBE;'></span>
+                <span style='background:#045A8D;'></span>
+                <label>0 - 20%</label>
+                <label>40%</label>
+                <label>60%</label>
+                <label>80%</label>
+                <label>100%</label>
+        </div> -->
+
+        <div class="container-right col-md-7 col-xs-12">
+            <div id="map-area" class="col-md-12 col-xs-12 remove-padding"></div>
+            <!-- <pre id='legend'></pre> -->
+        </div>
+
+        <!-- FOOTER -->
+
+        <div class="col-xs-12 footer">
+                <div class="col-xs-1 footer-image">
+                    <img class="footer-logo" src="./img/powered-by-unite.png">
+                </div>
+                <div class="col-xs-11 footer-credits">
+                    <p>Developed by UN Department of Economic and Social Affairs in collaboration with the Office of Information and Communications Technology. Models developed at the Royal Institute of Technology (KTH) in Sweden. <a href="#">Download the model, data and full results here</a>.</p>
+                </div>
+        </div>
+        
+    </div>
+
+</body>
+
+    <!-- MORE JAVASCRIPT -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/controls.js"></script>
+    <script type="text/javascript" src="./js/dashboardpie.js"></script>
+    <script type="text/javascript" src="./js/dashboardbar.js"></script>
+    <script type="text/javascript" src="./js/worldmap.js"></script>
+
+</html>

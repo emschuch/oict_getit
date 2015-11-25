@@ -1,0 +1,238 @@
+body{
+  background-color: #fff;
+  color: #2F2F2F;
+  font-family: "Roboto", Helvetica, Arial, Verdana, sans-serif;
+}
+.container {
+    max-width: 1112px;
+    margin: 0 auto;
+}
+.container-left,
+.container-right {
+    display: inline-block;
+    max-height: 500px;
+    box-sizing: border-box;
+}
+.container-left {
+    padding: 0;
+}
+.container-right {
+    padding-right: 0;
+}
+.main-title {
+    margin-top: 60px;
+    margin-bottom: 20px; 
+    text-transform: uppercase;
+}
+.main-title > h1 {
+    font-size: 4rem;
+    margin: 0;
+}
+.remove-padding {
+    padding: 0;
+}
+
+/* DASHBOARD CONTROLS */
+.btn-default {
+    height: 24px;
+    width: 100%;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+.btn-default:active,
+.btn-default:hover,
+.btn-default:after,
+.open > .dropdown-toggle.btn-default:focus {
+    background-color: #f5f5f5;
+
+}
+.open > .dropdown-toggle.btn-default:focus {
+    outline: none;
+}
+#control-area {
+    background: #ddd;
+}
+.control-small {
+    /*height: 8%;*/
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.control-med {
+    /*height: 22%;*/
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+.control-lg {
+    /*height: 40%;*/
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+.control-topborder {
+    border-top: 1px solid #fff;
+}
+.control-text {
+    text-transform: uppercase;
+    padding: 0;
+    line-height: 1.1;
+    margin: 4px 0;
+}
+.control-text-small {
+    text-transform: uppercase;
+    padding: 0;
+    line-height: 1.1;
+    margin-bottom: 4px;
+    font-size: 1.2rem;
+}
+.control-text-lg {
+    text-transform: uppercase;
+    padding: 0;
+    line-height: 1.1;
+    margin: 4px 0 8px 0;
+    font-size: 1.6rem;
+}
+.cost-text {
+
+}
+.threshold-text {
+    text-transform: uppercase;
+    margin: 0;
+    padding-top: 5px;
+    font-size: 1.8rem;
+    line-height: 1.1;
+}
+.dropdown-menu {
+    min-width: 10px;
+    max-width: 300px;
+    height: auto;
+    max-height: 300px;
+    overflow-x: hidden; 
+}
+.scrollable-menu::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 9px;
+}    
+.scrollable-menu::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: #999;
+    /*-webkit-box-shadow: 0 0 1px rgba(255,255,255,.75);*/
+    border: 2px solid #f5f5f5;
+}
+.add-padding {
+    padding-left: 20px;
+}
+
+/* DASHBOARD CHARTS */
+.bar-chart-div {
+    padding: 6px 0;
+}
+.bar-chart-area {
+    min-height: 1px;
+    padding-left: 5px;
+}
+.bar-chart-label {
+    margin: 2px 0;
+}
+.bar-chart-svg {
+    /*border: 1px solid #f0f;*/
+}
+.pie-chart-text {
+    font-size: 2.4rem;
+}
+
+/* MAP STYLE */
+#map-area {
+    /*background: #fff url("../img/africa2.png") no-repeat right top;*/
+    /*background-size: cover;*/
+    min-height: 500px;
+    /*border: 1px solid #ddd;*/
+    background: #474747;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+#legend {
+    position: absolute;
+    top: 2;
+    left: 17;
+    width: 130px;
+    height: 80px;
+    background: rgba(51, 51, 51, 0.5);
+    padding: 0;
+    border: none;
+    /*background: none;*/
+}
+.countries {
+    fill: #333;
+}
+.countries-boundary {
+    stroke: #5f5f5f;
+    stroke-width: 1px;
+}
+.country-label {
+    /*text-transform: uppercase;*/
+    text-shadow: 3px 3px 5px #000;
+    font-size: 2rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+/* FOOTER STYLE */
+.footer {
+  height: 30px;
+  width: 100%;
+  padding: 15px 0;
+}
+.footer-credits {
+  display: inline-block;
+  padding-right: 0;
+  text-align: left;
+  color: #9d9d9d;
+  font-size: 1.1rem;
+}
+.footer-image {
+  padding: 0;
+  display: inline-block;
+  float: left;
+  height: 36px;
+}
+.footer-logo {
+  max-height: 100%;
+  max-width: 100%;
+  margin: auto 0;
+  display: block;
+}
+
+
+@media (max-width: 768px) {
+    .container-right {
+        padding-left: 0;
+        padding-top: 15;
+    }
+    .container-left,
+    .container-right,
+    #map-area {
+        min-height: 500px;
+        max-height: 550px;
+    }
+    .add-padding {
+        padding-left: 10px;
+    }
+}
+
+@media (max-width: 992px) {
+    .container-right {
+        padding-left: 0;
+        padding-top: 15;
+    }
+    .container-left,
+    .container-right,
+    #map-area {
+        min-height: 500px;
+        max-height: 550px;
+    }
+    .add-padding {
+        padding-left: 10px;
+    }
+}
+
