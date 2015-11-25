@@ -52,11 +52,11 @@ class API < Sinatra::Base
 
   namespace('/countries') {
     get('/?') {
-      all_country_names.to_json
+      all_country_names.all.to_json
     }
 
     get('/:country_name/?') {
-      get_entry_count_by_country params[:country_name].all.to_json
+      get_entry_count_by_country(params[:country_name]).all.to_json
     }
   }
 end

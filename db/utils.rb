@@ -4,7 +4,6 @@ def all_country_names
   $db[:countries]
     .select(:name, :id)
     .order_by(:name)
-    .all
 end
 
 def insert_entries stop
